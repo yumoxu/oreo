@@ -1,10 +1,10 @@
 # Oreo: Text Summarization with Oracle Expection
 
 
-## Build Training Data with Oreo Labels
-First download raw summarization data from [this link]((https://drive.google.com/file/d/1FG4oiQ6rknIeL2WLtXD0GWyh6pBH9-hX/view)) for CNN/DM and [this link](https://drive.google.com/file/d/1PnFCwqSzAUr78uEcA_Q15yupZ5bTAQIb/view) for other datasets (XSum, MultiNews, Reddit and WikiHow). Put the downloaded datasets under `raw_data`. 
+## Build Summarization Data with Oreo Labels
+First download raw summarization data from [this link](https://drive.google.com/file/d/1FG4oiQ6rknIeL2WLtXD0GWyh6pBH9-hX/view) for CNN/DM and [this link](https://drive.google.com/file/d/1PnFCwqSzAUr78uEcA_Q15yupZ5bTAQIb/view) for other datasets (XSum, MultiNews, Reddit and WikiHow). Put the downloaded datasets under `raw_data`. 
 
-You can then build training data with Oreo labels for BertSum as follows:
+You can then build your summarization data with Oreo labels for BertSum as follows:
 
 1. Beam search
 
@@ -12,6 +12,7 @@ Run the following command for `split={train, val, test}`:
 ```python
 split=train && dataset=CNNDM && beam=256 && summary_size=3 && src_json_fn=${split}_${dataset}_bert.jsonl && dump_json_fn=cnndm_bert-beams_${beam}-steps_${summary_size}.${split}.beam_json && py src/labels/build_beam_json.py --task build_beam_json_from_bert --src ~/oreo/raw_data/$src_json_fn --save ~/oreo/json_data/$dump_json_fn --beam $beam --summary_size $summary_size 
 ```
+See `json_data/cnndm_sample.valid.beam_json` for output examples.
 
 2. Build sentence labels
 
@@ -19,6 +20,7 @@ Run the following command for `split={train, val, test}`:
 ```bash
 split=train && oracle_dist=uniform && beam=256 && summary_size=3 && beam_json_fn=cnndm_bert-beams_${beam}-steps_${summary_size}.${split}.beam_json && py src/labels/build_bert_json.py --task build_bert_json --src ~/oreo/json_data/$beam_json_fn --oracle_dist ${oracle_dist} --store_hard_labels --oracle_dist_topk 16
 ```
+See `json_data/cnndm_sample.valid.bert_json` for output examples.
 
 3. Shard Bert files
 
