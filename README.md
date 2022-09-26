@@ -42,5 +42,6 @@ oracle_dist=uniform_top_16_oracle_dist && beam=256 && summary_size=3 && dir_name
 
 ## Model training and evaluation
 We are currently cleaning the code for model training and evaluation, and will soon upload the code for both supervised and zero-shot summarization experiments. 
-We recommend you to check out the official implementation of [BertSum](https://github.com/nlpyang/PreSumm/tree/dev) and [GSum](https://github.com/neulab/guided_summarization), which we used for extractive and abstractive experiments, respectively. 
+We recommend you to check out the official implementation of [BertSum](https://github.com/nlpyang/PreSumm) and [GSum](https://github.com/neulab/guided_summarization), which we used for extractive and abstractive experiments, respectively. 
 Note that for a fair comparison between different labeling schemes, we follow their standard training configuration without any additional hyper-parameter optimization (e.g., for our specific labeling scheme). 
+
